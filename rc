@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+RC_FOLDER=$HOME/config
+vim $RC_FOLDER/$(ls $RC_FOLDER | dmenu)
