@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-WALLPAPER=~/Pictures/wallpaper
-feh --bg-scale $WALLPAPER/indiopara.jpg
-pkill compton ; compton &
-
+WALLPAPER=$HOME/Pictures/wallpaper
+feh --bg-scale $WALLPAPER/indiopara.jpg 2> /dev/null | echo "failure to load wallpaper. something happaned"
+pkill compton 2> /dev/null

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if [ -z $1 ]
+then
+	echo "bin me usage: binme [file name]"
+	exit 1
+else
+	ls $(pwd)/$1 2>/dev/null && ln -s $(pwd)/$1 /usr/bin/$1  || ls $1 2>/dev/null && ln -s $1 /usr/bin/$1 || echo "inserted file was not found"
+fi
