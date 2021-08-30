@@ -1,4 +1,15 @@
-#!/usr/bin/env bash
-WALLPAPER=$HOME/Pictures/wallpaper
-feh --bg-scale $WALLPAPER/indiopara.jpg 2> /dev/null | echo "failure to load wallpaper. something happaned"
-pkill compton 2> /dev/null
+#!/usr/bin/env bash 
+WPP_NAME=wallpaper
+
+if [ -z $1 ]; then
+	F_WPP=$HOME/pictures/wallpaper/$WPP_NAME
+else
+	F_WPP=$1
+	cp $1 ./$WPP_NAME && mv $WPP_NAME $HOME/pictures/$WPP_NAME
+fi
+
+if [ -a $F_WPP ]; then
+	feh --bg-scale $F_WPP 2> /dev/null || echo "wpp: failure loading $F_WPP. something happened"
+else
+	echo "wpp: specified file does not or no longer exists"
+fi

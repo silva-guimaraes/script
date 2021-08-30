@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-if [ -z $1 ]
+if [ -z $1 -a -z $2 ]
 then
-	echo "bin me usage: binme [file name]"
+	echo "bin me usage: binme [name of the file to be bin'd] [bin'd file name]"
 	exit 1
 else
-	ls $(pwd)/$1 2>/dev/null && ln -s $(pwd)/$1 /usr/bin/$1  || ls $1 2>/dev/null && ln -s $1 /usr/bin/$1 || echo "inserted file was not found"
+	ls $(pwd)/$1 2>/dev/null && sudo ln -s $(pwd)/$1 /usr/bin/$2 2>/dev/null || ls $1 2>/dev/null && sudo ln -s $1 /usr/bin/$2 2>/dev/null|| echo "an error has ocurred"
+	echo "binme: symlink /usr/bin/$2 created successfully"
 fi
