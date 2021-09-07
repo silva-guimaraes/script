@@ -1,2 +1,12 @@
 #!/usr/bin/env bash
-sudo mount /dev/$(ls /dev | grep sd | dmenu) /home/xi/mount 2>/dev/null || sudo umount /home/xi/mount
+
+MNT=$HOME/mount
+
+if [[ $(ls -A /$HOME/mount) ]]; then
+	sudo umount $MNT
+	echo "mm: volume unmounted"
+	exit 1
+else
+	echo mm: no volumes detected. mount a new volume:
+	sudo mount /dev/$1 $MNT 2>/dev/null || sudo mount /dev/$(ls /dev | grep sd | dmenu) $MNT 2>/dev/null
+fi

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-WPP_NAME=wallpaper
+WPP_NAME=wallpaper 
 
 if [ -z $1 ]; then
 	F_WPP=$HOME/pictures/wallpaper/$WPP_NAME
