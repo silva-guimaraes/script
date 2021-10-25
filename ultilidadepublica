@@ -1,0 +1,4 @@
+# alterar terminal atual
+sudo update-alternatives --config x-terminal-emulator
+#desabilitar (1) ativar (0) touchpad
+synclient TouchpadOff=1
