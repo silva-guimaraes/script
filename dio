@@ -1,17 +1,19 @@
 #!/usr/bin/sh
-# esse script tem esse nome pela facilidade de digitar e apenas isso.
+# se chama dio pq é facil digitar dio. mais nada.
 
-# se nenhuma variavel global estiver definada para DIO_FOLDER, definir uma:
-[ -z $DIO_FOLDER ] && DIO_FOLDER=$HOME/dio
-
+# dio pode usar uma variavel global como local da pasta caso uma esteja definida
+if [ -z $DIO_FOLDER ]; then
+	DIO_FOLDER=$HOME/dio
+elif ! [ -d $DIO_FOLDER  ]; then
+	mkdir $DIO_FOLDER \
+	&& printf "dio: variavel externa DIO_FOLDER encontrada porem nenhuma pasta pôde ser encontrada. criando uma.\n " && exit
+fi 
 
 dio_help(){ 
-	printf "a função principal de dio pode ser acessada com um (e apenas um) simples \"dio\" na linha de comando.\nqualquer coisa inserida após \"dio\" será interpretada como um argumento. segue abaixo uma meia lista das opções de comandos aceitados por dio no momento:\n"
+	printf "dio: a função principal de dio pode ser acessada com um (e apenas um) simples \"dio\" na linha de comando.\nqualquer coisa inserida após \"dio\" será interpretada como um argumento. segue abaixo uma meia lista das opções de comandos aceitadas por dio no momento:\n"
 	printf "help\nadd\nlist\nremove\n\n"
 		exit
 } 
-
-
 add_dio(){
 
 	[ -z $1 ] && dio_help || ORIGIN=$1
@@ -24,14 +26,13 @@ add_dio(){
 	else 
 		printf "dio: arquivo $ORIGIN inexistente? por favor verifique se o nome do arquivo foi digitado corretamente.\n\n"
 	fi 
-}
-
-
+} 
 dio_choose(){ 
 	ESCOLHA=$(realpath $DIO_FOLDER/$(ls $DIO_FOLDER | dmenu)) 
 
 
-	if [ -e $ESCOLHA ]
+	if [ -e $ESCOLHA ] && ! [ $ESCOLHA = $DIO_FOLDER ]
+	#dmenu retorna o stdin prévio caso nehum texto seja inserido (ex. pressionando "esc")  
 	then 
 		if [ -w $ESCOLHA ]
 		then 
@@ -42,18 +43,20 @@ dio_choose(){
 			&& sudoedit $ESCOLHA 
 		fi
 	fi
-}
+} 
 
-
+#main
 case $1 in 
 	add)
 		add_dio $2 $3
 		;;
 	list)
+		echo "links presentem em $DIO_FOLDER:"
 		ls -1 $DIO_FOLDER 
 		;;
 	remove)
-		rm -i $DIO_FOLDER/$2
+		[ -z $2 ] && printf "dio: por favor insira o nome do link a ser apagado\n\"dio list\" para exibir todos os links presentes em $DIO_FOLDER\n" \
+		|| rm -i $DIO_FOLDER/$2
 		;;
 	help)
 		dio_help
