@@ -6,7 +6,7 @@ if [ -z $DIO_FOLDER ]; then
 	DIO_FOLDER=$HOME/dio
 elif ! [ -d $DIO_FOLDER  ]; then
 	mkdir $DIO_FOLDER \
-	&& printf "dio: variavel externa DIO_FOLDER encontrada porem nenhuma pasta pôde ser encontrada. criando uma.\n " && exit
+	&& printf "dio: variavel externa DIO_FOLDER encontrada no entanto nenhuma pasta pôde ser encontrada. criando uma.\n " && exit
 fi 
 
 dio_help(){ 
@@ -39,7 +39,7 @@ dio_choose(){
 			edit $ESCOLHA
 			exit
 		else
-			printf "permissões inssuficientes para editar aquivo. indo sudo.\n" \
+			printf "permissões insuficientes para editar arquivo. indo sudo.\n" \
 			&& sudoedit $ESCOLHA 
 		fi
 	fi
@@ -51,7 +51,7 @@ case $1 in
 		add_dio $2 $3
 		;;
 	list)
-		echo "links presentem em $DIO_FOLDER:"
+		echo "links presentes em $DIO_FOLDER:"
 		ls -1 $DIO_FOLDER 
 		;;
 	remove)

@@ -1,3 +1,19 @@
 #!/usr/bin/sh 
+
+sizes(){
+    for i in $1/*
+    do
+	printf "%b: %b\n" $i $(du -h -s $i)
+	#du -h -s
+    done 
+}
+
+
 [ -z $1 ] && exit
-stat $1 | grep Size | tee
+if [ -d $1 ]; then
+    sizes $1
+else
+    stat $1 | grep Size | tee
+fi 
+
+
