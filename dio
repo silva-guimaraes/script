@@ -1,12 +1,16 @@
 #!/usr/bin/sh
-# se chama dio pq é facil digitar dio. mais nada.
+# se chama dio pq é fácil digitar dio. mais nada.
 
-# dio pode usar uma variavel global como local da pasta caso uma esteja definida
+
+# dio pode usar uma variável global como local da pasta caso uma esteja definida
 if [ -z $DIO_FOLDER ]; then
 	DIO_FOLDER=$HOME/dio
-elif ! [ -d $DIO_FOLDER  ]; then
-	mkdir $DIO_FOLDER \
-	&& printf "dio: variavel externa DIO_FOLDER encontrada no entanto nenhuma pasta pôde ser encontrada. criando uma.\n " && exit
+elif ! [ -d $DIO_FOLDER ]; then
+	printf "dio: variável externa DIO_FOLDER encontrada no entanto nenhuma pasta " 
+	printf "correspondente foi localizada. criando uma.\n" && mkdir $DIO_FOLDER \
+	&& exit \
+	|| printf "dio: falha ao criar pasta. algum erro ocorreu" \
+	&& exit
 fi 
 
 dio_help(){ 
@@ -34,8 +38,7 @@ dio_choose(){
 	if [ -e $ESCOLHA ] && ! [ $ESCOLHA = $DIO_FOLDER ]
 	#dmenu retorna o stdin prévio caso nehum texto seja inserido (ex. pressionando "esc")  
 	then 
-		if [ -w $ESCOLHA ]
-		then 
+		if [ -w $ESCOLHA ]; then 
 			edit $ESCOLHA
 			exit
 		else

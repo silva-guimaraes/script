@@ -6,4 +6,8 @@ synclient TouchpadOff=1
 #baixar varios arquivo por ftp 
 wget -r -nH --cut-dirs=5 -nc ftp://user:pass@server//absolute/path/to/directory
 #queimar iso
-dd bs=4M if=path/to/ubuntu.iso of=/dev/sdx status=progress oflag=sync
+dd,bs=4M if=path/to/ubuntu.iso of=/dev/sdx status=progress oflag=sync
+#baixar site
+wget -mpEk "url"
+#limpar o cache
+sudo systemd-resolve --flush-caches

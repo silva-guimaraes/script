@@ -15,5 +15,3 @@ if [ -d $1 ]; then
 else
     stat $1 | grep Size | tee
 fi 
-
-
